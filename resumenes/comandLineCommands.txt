@@ -1,0 +1,44 @@
+----------
+pwd (Present Working Directory): Logical path to the current directory from Home.
+	-P : flag for displaying phisical path
+----------
+ls /otro/directorio/ : lists files and directories following the indicated path
+	-a : shows also hidden files
+	-l : shows detailed information about the files
+	-h : shows file sizes
+	-S : sorts files by size
+	-t : sorts by last modified time
+	-r : reverse sort
+----------
+ln 'source.txt' 'destination.txt' : creates a hard link between two files (destination.txt is the hard link). A hard link 'creates a copy of the 										file' and updates it automatically. It can't be used on directories without a flag.
+	-f : forces the link to be created even when the file 'destination.txt' already exists
+	-S : creates a soft/symbolic link. 
+----------
+rm 'hola.txt' : deletes the indicated file
+	-d : works also on directories
+	-rf : removes a directory forcefully
+----------
+cd path : navigates to the desired path
+cd .. : goes up to the parent directory
+cd : goes to the Home directory
+----------
+mkdir 'directoryName' : creates a directory in the current path with the desired name.
+----------
+cp 'source.txt' pathWithFileName / fileName / path : copies the file 'source.txt' with the corresponding path and or name. There can be many files 														 we want to copy, but in that case the last argument must be only a path.
+	-R : recursively copies a directory instead of a file to the destination folder
+	-v : verbose
+	-f : forces the copy, even when it overrides a file
+	-i : asks if you want to override files if you are using the -f flag
+----------
+mv      : moves a file/directory to a different location. Works in the same way and suports the same flags as the cp command. It is also used to 			  rename files and directories.
+----------
+touch 'fileName.txt' : creates a file with the indicated name
+----------
+command1 | command2 (pipe) : redirects the output of command1 to the input of command2
+----------
+command1 > 'file.txt' : writes the output of command1 into the file 'file.txt'
+----------
+ctrl+shift+c / ctrl+shift+v to copy/paste from/to the comand line.
+----------
+code 'file.js' : opens in VScode the desired file.
+code .  	   :                 all files in the directory.  

@@ -1,0 +1,27 @@
+HTML - Define the strcuture and content of a web page.
+
+Elements: basic components of an HTML page. They are containers for content. 
+Tags: define the start and the end of an html element. They go between < >, and they're usually disposed like <tag> ... </tag> 
+
+Some elements do not have a closing tag (empty elements, don't wrap any content).
+
+ALLWAYS the homepage of the website must be defined in a file called 'index.html'.
+
+DOCTYPE: tells the browser the html version and hence how to render the page. We use <!DOCTYPE html>
+HTML element: root element of the document. 
+
+<!DOCTYPE html>
+<html lang="en"> 
+
+	<head>
+		<title> Generic Page </title> 
+		<meta charset = "utf-8">  // sets the encoding
+	</head>
+
+	<body>
+		
+	</body>
+
+</html>
+
+lang is an ATTRIBUTE that specifies the language of the text content within that element. 

@@ -1,0 +1,34 @@
+Version Control: is a system that records changes to a file or set of files over time. VCS = Version Control System. 
+
+Local VCS -> lives in a database inside a local machine. 
+Centralized VCS -> lives in a single server that can be accesed by many collaborating clients. 
+Distributed VCS -> clients mirror the remote repository. Every clone is a full backup. This is how git works. 
+
+Git thinks of its data as a series of snapshots of a miniature file system. Every time you commit something, Git takes a picture of all your files. It only makes a copy of the files that have changed. 
+
+Most operations in git are local. 
+
+There are 3 states any file can reside in: 
+	- Modified: you have changed the file but not yet commited to your local database.
+	- Staged: you have marked a modified file in its current version to go into your next commit.
+	- Commited: the file is already stored in the database in its current version.
+
+Main sections of a Git proyect:
+	- Working tree: single checkout of a version of the project, over which you can see and modify files. 
+	- Staging area: file in your git directory that stores information about what's gonna be commited on your next commit (it's called 'index'). 
+	- Git directory: where Git stores the metadata and object database for your project. It's what it's cloned when you clone c: 
+
+Common commands:
+	- status : shows the status of the directory files. 
+	- log : shows history of commits.
+	- add
+	- commit
+	- push 
+
+Brnaches
+	- branch <branch_name>  --> create new branch
+	- checkout (-b) <branch_name>  --> move to branch
+	- merge <branch_name>  --> takes the changes commited in branch_name and adds them to the current branch
+	- branch -d <branch_name> --> deletes the branch (-D if it hasn't' been merged into main)
+		- to also delete the branch remotely: git push --delete origin <branch_name>
+	- git push origin <branch_name>

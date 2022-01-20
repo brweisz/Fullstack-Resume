@@ -1,0 +1,358 @@
+-----------TAGS-----------
+<!DOCTYPE html>
+<html>
+<head> </head>
+    <meta /> //Sirve para proveer info sobre el archivo HTML
+<title> </title>
+<body></body>
+<h1>___</h1>,  <h2>___</h2>,...
+<center> </center>
+<br />        //break
+<hr />        //linea horizontal
+&nbsp  ("12&nbsp;Angry&nbsp;Men.") // No rompe los espacios
+
+---------Formato----------
+-<pre> </pre>   // Mantiene el formato de texto del editor de texto.
+-<strong> </strong> // Bold text
+-<i> </i> //italics
+-<u> </u> //underline
+-<b> </b> //bold
+-<strike> </strike> // texto tachado
+-<tt> </tt> //Fuente monoespaciada
+-<sup> </sup> //Superindice
+-<sub> </sub> //Subindice
+-<big> </big> //Un tamaño de letra mayor
+-<small> </small> // Un tamaño de letra menor
+
+-<em> </em> //texto enfatizado
+-<mark> </mark> //texto resaltado en amarillo
+-<abbr> </abbr> //abreviacion de texto
+        (((<abbr title = "Abhishek"> Abhy </abbr>)))
+-<bdo dir = "ltr / rtl"> </bdo> // bidirectional override
+-<blockquote> </blockquote> //texto en bloque
+-<code> </code> // Elemento con codigo/pseudocódigo
+    -<var></var> // Variables dentro del pseudocódigo
+
+-<div> </div>   // Se usa para diferenciar secciones en una página web, una seccion puede tener su titulo, id, estilo, etc.
+
+-<span> </span> // Se usa para agrupar elementos dentro de una linea (por ejemplo, si se le quisiera dar un formato especial a algunas palabras en un texto)
+
+-----------ATRIBUTES-----------
+Atributos principales (core attributes)
+
+-id: sirve para identificar univocamente a un elemento de html
+-title: da un titulo al elemento
+-class: asocia un elemento con una 'style sheet' (+ con CSS)
+-style: permite asociar al elemento reglas de CSS (Cascading Style Sheet) de forma local, sin un archivo css.
+
+Internationalization Attributes
+-dir = "ltr / rtl"  --> orientacion del texto
+-lang               --> lenguaje principal del elemento
+-xml:lang           --> same lang, se usa este
+
+Uso de atributos
+
+<tag nombre_atributo_1 = "contenido_atributo_1", ...> ___ </tag>
+
+Otros atributos
+
+-align = "left/center/right"
+-valign = "top/middle/bottom"
+-bgcolor --> color de fondo del elemento
+-background = "URL" --> imagen de fondo del elemento
+-width
+-height
+
+-------------------META-------------------
+
+<meta> // es una empty tag que se usa para brindar información adicional a la pagina (metadata)
+-Soporta los core attributes y además name, content, scheme, http-equiv, etc.
+
+-Sirve para declarar palabras clave para los motores de búsqueda.
+    ((<meta name = "keywords" content = "HTML, Meta Tags, Metadata,.." />
+      <meta name = "description" content = "Learning about Meta Tags." />))
+
+-Sirve para declarar cada cuanto tiempo recargará la pagina
+  ((<meta http-equiv = "refresh" content = "5" />))
+
+-Sirve para redirigir la página despues de cierto tiempo
+    ((<meta http-equiv = "refresh" content = "5; url = http://www.tutorialspoint.com" />))
+
+-Sirve para setear Cookies (información sobre el cliente que se conecto, para que luego el servidor las pueda utilizar)
+    ((<meta http-equiv = "cookie" content = "userid = xyz; expires = Wednesday, 08-Aug-15 23:59:59 GMT;" />))
+
+-Sirve para aclarar el autor de un sitio
+    ((<meta name = "author" content = "Bruno Weisz" />))
+
+---------IMAGENES---------------
+
+<img src = "image URL" ...attributes... />
+
+Attributes:
+- alt = "texto alternativo a la imagen"
+- width = "pixeles"
+- height = "pixeles"
+- border = "pixeles"
+- align = "left/center/right"
+
+- usemap (ver mas abajo)
+
+------------TABLAS------------
+
+<table> </table>
+
+Componentes en cascada:
+
+<tr> </tr> --> filas
+<td> </td> --> columna en una fila (casillero)
+<th> </th> --> casillero header (reemplaza un td)
+
+<caption> 'titulo' de la tabla </caption>
+
+atributos de la tabla:
+- border = "0/1/2/..."
+- cellpadding = "1,2,3,4,..." (espacio entre borde de celda y contenido)
+- cellspacing = "1,2,3,4,..." (espacio entre celdas)
+
+- bordercolor (no se usa)
+- bgcolor     (no se usa)
+- background  (no se usa)
+
+- height
+- width
+
+
+atributos de una celda:
+- rowspan = "1,2,3,..." (una casilla ocupa n filas)
+- colspan = "1,2,3,..." (una casilla ocupa n columnas)
+
+
+---------LISTAS---------
+
+<ul> </ul> --> unordered list
+<ol> </ol> --> ordered list
+<dl> </dl> --> definition list
+
+<li> </li> --> elemento de la lista
+
+
+atributos de listas desordenadas:
+- type = "square/disc/circle"
+
+atributos de listas ordenadas:
+- type = "1/i/I/a/A"
+- start = "1,2,3,..." --> comienzo de la numeración
+
+listas de definición:
+<dl> --> comienzo de la lista
+    <dt> Término </dt>
+    <dd> Definición </dd>
+    ...
+</dl>
+
+------------HYPERLINKS--------------
+        --- TEXT LINKS ---
+
+<a> </a> --> anchor tag (Ancla)
+
+Ej: <a href="page_url" ...atributos> texto_del_link </a>
+
+Atributos:
+- target --> Se usa para especificar en dónde se abrirá la nueva página.
+    *_blank: nueva ventana o tab
+    *_self: en la misma pestaña
+    *_parent: en el 'parent frame'
+    *_top: en el cuerpo completo de la ventana
+    *targetframe
+
+- base: se usa en <head>, sirve para especificar la base de la ruta de archivos de nuestra pagina web en caso de que querramos usar hipervínculos de la misma página.
+    Ej: <base href = "http://127.0.0.1:50297 /">
+
+- id: sirve para hacer hipervínculos a una parte especifica de una pagina       web.
+    Ej: En la pagina web a visitar --> <a id = "gancho"></a>
+        En la pagina desde la que se accede -->
+            <a href = "pagina.html#gancho"></a>
+
+Para dar un link de descarga, alcanza con proveer la URL completa del archivo (PDF, ZIP o DOC).
+
+
+        --- IMAGE LINKS ---
+
+En lugar de usar un texto como vinculo, alcanza con poner una imagen.
+Ej:
+<a href = "pagina.html"> <img src = "image.png" alt = "."/> </a>
+
+Mouse sensitive links:
+
+En la img tag, usar atributo usemap = "#nombre_mapa", luego crear el map.
+
+<map name = "nombre_mapa">
+    -------
+    <area shape = "circle" coords = "x,y,r" alt = "texto" href="pagina.html" target = "_self"> </area>
+    -------
+    <area shape = "rect" coords = "x1,y1,x2,y2" ...> </area>
+    -------
+    <area shape = "poly" coords = "x1,y1,x2,y2,x3,y3..." ...> </area>
+    -------
+</map>
+
+
+-------------IFRAMES---------------
+
+<iframe src = "paginaAux" width = "X" height = "y">No iframe </iframe>
+
+-----------BACKGROUNDS-------------
+Con colores:
+<tag bgcolor = "colorcito"></tag>
+    Formatos de color:
+        - "nombre_color"
+        - "#f1f1f1"
+        - "rgb(x,y,z)"
+
+Con imagenes: en HTML5 se hace con CSS.
+
+--------------FORMULARIOS--------------
+
+<form> </form>
+    <input />
+
+Atributos del form:
+    - action = "script_url" -> url del script backend que va a procesar los datos
+    - method = "GET / POST" ->
+    - target = "_blank / self" -> especifica el contexto en el que el resultado del script va a ser mostrado
+    - enctype -> forma en la que el navegador va a encriptar la informacion enviada por el form
+
+Hay muchas formas de recolectar data desde un formulario (Form Controls):
+
+    - Text input:
+        _single-line -> unica linea de texto (<input>)
+        _password -> unica linea de texto (oculta caracteres) (<input>)
+        _multi-line -> (<textarea></textarea>)
+
+    - Checkboxes Controls: type = "checkbox"
+    - Radio control: <input type = "radio">
+    - Select box control: <select> <option> </option> </select>
+    - File Upload Box: <input type = "file">
+    - Button controls: <input type = "button">
+        - <input type "...">
+            -submit
+            -reset
+            -button (sirve para triggerear un script del lado cliente)
+            -image  (boton pero con imagen)
+
+    - Hidden controls: no son visibles, sirven para enviarle información al servidor
+
+Atributos de input:
+    - type: tipo de input control.
+    - name: le da un nombre al input control.
+    - value: valor inicial en texto, valor de la casilla en checkbox.
+    - size: ancho del texto (texto), altura en un dropdown
+    - maxlength: maximos caracteres utilizables (texto)
+    - checked: si arranca marcado (checkbox/radio)
+
+Atributos de textarea:
+    - rows
+    - cols
+    - name
+
+Atributos de select:
+    - value
+    - selected()
+    - label
+
+Atributos de file upload box:
+    - name
+    - accept = "tipo_de_archivo/*"
+
+----------EMBED-MULTIMEDIA---------
+Un elemento embed representa un punto de integración para una aplicación externa o de contenido interactivo (en otras palabras, un plug-in).
+
+
+<embed> <noembed> </noembed> </embed>
+
+<noembed> es el equivalente al texto que va en reemplazo de las imagenes si un navegador no soporta imagenes.
+
+(solo soporta .sfw .wmv .mov .mpeg .avi de video)
+
+Atributos:
+- src= "ruta_al_archivo_multimedia"
+- width
+- height
+- name
+
+- loop = "true/false/1,2,3..."
+- playcount -> alternativo a loop
+- hidden = "true/false"
+- volume = 0-100
+
+    --------
+<bgsound> </bgsound> -> soundtrack de fondo en la página. Solo internet explorer
+    --------
+
+<objet> </objet> --> solución genérica a la inclusión de objetos
+
+Ej:
+<objet data = "src" type = "...">
+<param ...>
+cosa alternativa que se muestra
+</objet>
+
+Atributos de Objet.
+- data = "ruta al elemento"
+- type = tipo de elemento
+- width
+- height
+
+Atributos de param.
+- name = "atributo a aclarar"
+- value = "valor del attr"
+
+--------MULTIMEDIA--------------
+
+<video> </video>
+
+Ej: *<video src = "..." controls> </video>
+    *<video>
+        <source src = "..." type = "video/format>
+    </video>
+
+attributes:
+    -width
+    -height
+    -autoplay
+    -loop
+    -muted
+    -poster = "url image"
+    -preload = "none/auto/metadata"
+
+            ----------
+<audio> </audio>
+Ej: *<audio>
+        <source src = "aaa.mp3" type = "audio/mp3>
+    </audio>
+
+attributes:
+    -autoplay
+    -loop
+    -muted
+    -preload
+
+from javascript:
+audioNode.currentTime = 0;
+audioNode.play();
+
+
+---------------QUE SE PUEDE HACER CON EL INSPECTOR------------------
+* Ver nodos
+* Navegar los nodos con las flechitas
+* Scroll into view
+* Buscar Nodos (ctrl+f)
+* Editar el DOM (contenido, atributos, tipo de nodo, reordenar nodos, esconder nodos (h), borrar nodos)
+
+------DIV & SPAN-------
+Div and span elements don't give any particular meaning to its content. They're generic boxes that can contain anything.
+Ussually they're used as a hook to give style with CSS or behaviour with javascript, or to group related elements into one parent to 
+position the elements.
+
+Div: is a block-level element by default. They're Ussually used to divide the page into blocks and apply a style to them. 
+Span: are (display: inline) by default, so they don't break into a new line. 

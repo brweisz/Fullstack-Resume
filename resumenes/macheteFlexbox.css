@@ -1,0 +1,61 @@
+Flexbox is a way to arrange items into rows or columns.
+Flaxbox is a toolbox of properties, some belong to the 'flex container' and some to the 'flex items'
+
+Flex container -> Is a container (like div) that has a {display: flex} property.
+Flex item -> Is an item that lives DIRECTLY inside of a flex container.
+
+------Direction of elements in a container------
+Any flex container has 2 axes: main axis and cross axis. *
+	[]flex-direction: column / row / colum-reverse / row-reverse --> default is 'row'. 
+
+Default behaviour: items display in a row, from the start edge of the main axis (row), items do not stretch in the main direction, but can shrink,
+				   items will stretch to fill the cross axis. []flex-basis: auto & []flex-wrap: nowrap.
+
+()Wrapping --> flexbox is a one-dimenssional model but we can make items wrap onto multiple lines, but in that case we have to consider each line as a flex container itself. We have to set 
+		[]flex-wrap: wrap; 
+	so when there are too many items, instead of shrinking or surpassing its container, they will display in a new line.
+
+Shorthand: flex-flow = flex-direction + flex-wrap
+
+
+------Targeting items directly------
+The next properties change the way aviable space is distributed amongst items in the same container in the main axis.
+
+[]flex-basis: Sets the initial size of an item in terms of the space it leaves as aviable space.
+	     * auto --> tells the item to search for a width/height declaration.
+	     * x% --> percentaje of the container;
+	     * x px/em --> explicit size
+	     * content --> size based in the conent
+
+[]flex-grow --> When set to a positive integer it refers to the item's 'growth factor' in relation to the other items in the container. 
+
+[]flex-shrink --> Only applies if the size of all flex items is greater than the size of their container. A greater value ends up with a smaller size.
+
+
+[]flex: ... is a shorthand for 3 properties, in the order...
+	-flex-grow: 0
+	-flex-shrink: 1
+	-flex-basis: 0% (if keyword 'flex' is present but not the flex-basis-part)/ auto (if keyword 'flex' is not present)
+	(default values)
+
+[]flex: initial --> default values (0,1,auto)
+				auto --> (1,1,auto) full flexible
+				none --> (0,0,auto) full inflexible
+
+-----------------
+[]align-items: aligns the items in the cross axis.
+							stretch --> items take all the aviable space (default behaviour)
+							center --> centers the items	
+							flex-start --> line up at the start of the container
+							flex-end 
+
+[]justify-content: aligns items through the main axis
+									space-between  --> separates the items evenly, aligning them through the main axis.
+									space-around --> even space at both sides of the item
+									space-evenly -->
+									flex-start --> at the begining of the axis
+									flex-end 
+									center
+
+
+[]gap: 8px  --> adds a gap between items (not against the edges).

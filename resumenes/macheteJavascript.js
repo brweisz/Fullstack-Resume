@@ -299,10 +299,12 @@ node.removeEventListener('nameOfEvent', function)
 
 
 
-In methods 2) and 3), we can pass one parameter to the callback functions. This parameter is the event itself.
+In methods 2) and 3), the callback functions recieves one parameter. This parameter is the event itself.
 
 e.target --> DOM node that was targeted 
 
+--warning--
+node.addEventListener("event", f(arg_1, ..., arg_n)) --> when we pass arguments this way, the function is called imediatly, WRONG.
 
 --Prevent default behaviour--
 Some events have a default behaviour in a browser, but if we attach a handler to the event, this handler will be called before its default
@@ -319,3 +321,176 @@ excecute the events binded to the click on the elements, from the bottom to the 
 	-capture: false --> the browser excecutes the callback functions binded to the events as it saves them in the stack.
 	-once: true --> the EventListener unbinds itself after the first call.
 
+----DESTRUCTING ASSIGNMENT----
+
+---Arrays---
+let [firstName, lastName] = "Jhon Smith".split(" ");
+let [a, ,b] = [1,2,3,4,5] ==> [1,3]
+let [obj.a, obj.b] = [1,2]
+
+-many values-
+let [a,b,...rest] = [1,2,3,4,5] ==> a == 1, b == 2, rest == [3,4,5]
+
+-missing values-
+let [a, b] = [1] ==> b == undefined
+let [a, b=2] = [1] ==> a == 1, b == 2  
+
+---Objects---
+The left side object contains an object-like pattern for the desired properties.
+let {var1, var2} = {var1: 1, var2: 2} // the order does not matter
+
+-changing the names of the properties-
+let {var1: variable1} = {var1: 1} // variable1 == 1 
+
+-default values-
+let {var1 = 1, var2} = {var2: 1} // default values can be any expression
+
+-many values-
+let {var1, ...rest} = {var1: 1, var2: 2, var3: 3} // rest == {var2: 2, var3: 3}
+
+-syntax issue-
+let a,b,c;
+{a,b,c} = {a:1, b:2, c:3} //doesn't work becausa js assumes {} outside an expression is a code block. The solution:
+({a,b,c} = {a:1, b:2, c:3})
+
+----------OBJECTS-----------
+*delete properties: delete obj.prop
+*Acces properties with a string: obj["propertyName"]
+*Use brackets to define a propertie name in an literal: obj = {[propertieNameInVariable]: "hola"}
+
+*"nameOfKey" in object --> boolean
+
+*for (let key in object){...} --> properties are listed in creation order, except for integer properties that go in order.
+
+--Object constructors--
+# Definition #
+function Object(arg1, arg2){
+	this.arg1 = arg1;
+	this.arg2 = arg2;
+}
+# Use #
+let obj = new Object("hola", "chau");
+
+----Object prototypes----
+*Literal objects have Object.prototype as its prototype.
+*Constructor functions have Function.prototype --> Object.prototype
+*Objects created with constructor functions (new Fun()) have Fun.prototype --> Object.prototype
+
+
+If we create an object (obj) with a contructor Fun(), each property will be copied into obj. Instead, if we set a property into Fun.prototype,
+there is only one copy of the property.
+
+--Methods--
+Obje
+Object.getPrototypeOf(obj)
+Object.setPrototypeOf(objToSet, objPrototype)
+let newObj = Object.assign(obj1, obj2) --> copy the properties and values from obj2 to obj1
+let newObj = create(obj2) --> creates an empty newObj with obj2 as its prototype
+
+--Factory function pattern--
+Example:
+function personFactory(name, age){
+	return {
+		name: name;
+		age: age;
+	}
+}
+let juan = personFactory("Juan", 24);
+
+----Scope and Context----
+Scope -> variable access (what variables I have access to)
+			-> current context of the code
+A scope can be locally or globally defined. Functions create local scopes, not loops or conditional structures.
+
+When we create a function, inside a function we are inside a child scope. If we define functions inside functions, for example...
+//scope 1
+let func1 = function(){
+	//scope 2
+	let name = "a";
+	let func2 = function(){
+		//scope 3
+	}
+}
+... we can access scope 2 from scope 3. This is called lexical or static scope.
+
+Scope conflict: two anidated scopes have a variable defined with the same name. Child scope wins the access. In the case with a function,
+	we can acces a variable named 'a' in both scopes throug 'a' and 'window.a'.
+
+context -> the value of 'this' pseudovariable
+	The root scope or global scope is generally the 'window' object
+
+--Changing the scope--
+*foo.call(scope, arg1, arg2, ...) --> calls the function 'foo' but binds the argument object as 'this' inside the function.
+*foo.apply(scope, [arg1, arg2, ...]) --> same effect, the difference is the way arguments are passed.
+*foo.bind(scope, arg1, arg2, ...) --> binds the scope and the arguments, but doesn't call the function    '
+
+--Closure--
+Functions retain its scope, doesn't matter where they are.' Closures allow us to create private variables and functions.
+
+----MODULE PATTERN----
+It is almost the same as a factory, but the module pattern wraps the factory inside a IIFE (Immediately Invoked Function Expression)
+
+Basic example:
+let myModule = (function(){
+	'use strict'; // good practice when using this pattern
+	// All functions and variables are scoped to this function
+	let _privateProperty = 3;
+	let publicProperty = 4;
+
+	function _privateMethod(){
+		console.log(_privateProperty);
+	}
+
+	function anotherPublicMethod(){
+		//...
+	}
+
+	return {
+		publicMethod: function(){
+			_privateMethod();
+		},
+		anotherPublicMethod,
+		publicProperty
+	}
+
+})();
+
+myModule.publicMethod();
+
+--Module with dependencies--
+
+let myModule = (function(dep){
+	//...
+})(dependency)
+
+--------CLASSES----------
+--class declaration--
+class NameOfClass {
+	prop = value;
+	constructor(arg1){ // method called automatically
+		this.val1 = arg1;
+	}
+	methodName(){...};
+	get something(){...};
+	set something(){...};
+}
+
+--unnamed class expression--
+let NameOfClass = class {
+	...
+}
+
+--named class expression--
+let NameOfVariableClass = class NameOfClass{
+	...
+}
+
+let obj = new NameOfClass(arg);
+
+Note: classes must be defined before its use in the code.
+Note: The body of a class is executed in strict mode.
+Note: There must be no commas separating class methods.
+Note: class declarations have a name, only visible inside the class.
+
+Really happening: 'class Name{}' creates a constructor function named 'Name' and puts the constructor method as its body. All class methods are 
+									stored in Name.prototype

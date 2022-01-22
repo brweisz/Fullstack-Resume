@@ -21,14 +21,34 @@ Main sections of a Git proyect:
 Common commands:
 	- status : shows the status of the directory files. 
 	- log : shows history of commits.
+		-p -> shows the difference between each commit
 	- add
-	- commit
+	- commit (-m) (-a)
+	- rm (-f) (--cached): removes a file from your working directory and untracks it. (-f) forces the removal. (--cached) doesn't delete the file.
 	- push 
+	- diff : shows exactly what you changed and haven't staged (the exact lines)
+	- mv : moves (or renames) the file and re-track it
 
-Brnaches
+Branches
 	- branch <branch_name>  --> create new branch
 	- checkout (-b) <branch_name>  --> move to branch
 	- merge <branch_name>  --> takes the changes commited in branch_name and adds them to the current branch
 	- branch -d <branch_name> --> deletes the branch (-D if it hasn't' been merged into main)
 		- to also delete the branch remotely: git push --delete origin <branch_name>
 	- git push origin <branch_name>
+
+-------------------------
+[] Put an existing folder under version control with git: git init
+[] .gitignore is the name of the file where you can put those files you don't want git to know about, using some rules to refer to the files:
+		- # COMMENT
+		- Standar glob patterns (simplified regular expressions used by shells)
+			- * matches zero or more characters
+			- [abc] matches any character inside brackets
+			- ? matches a single character
+			- [a-b-c] matches any character
+		- / avoid recursivity on patterns
+		- ! negate pattern
+
+	Examples:
+		- *.a  --> ignores all .a files
+		- !lib.a --> specifically track this file

@@ -211,58 +211,123 @@ Con colores:
 
 Con imagenes: en HTML5 se hace con CSS.
 
---------------FORMULARIOS--------------
+////--------------FORMS----------------////
 
-<form> </form>
-    <input />
+<form method = "..." action = "..."> 
+    ....
+</form>
 
-Atributos del form:
+---Form attributes---
+
     - action = "script_url" -> url del script backend que va a procesar los datos
     - method = "GET / POST" ->
     - target = "_blank / self" -> especifica el contexto en el que el resultado del script va a ser mostrado
     - enctype -> forma en la que el navegador va a encriptar la informacion enviada por el form
 
-Hay muchas formas de recolectar data desde un formulario (Form Controls):
+There are many way to collect data in a form:
 
-    - Text input:
-        _single-line -> unica linea de texto (<input>)
-        _password -> unica linea de texto (oculta caracteres) (<input>)
-        _multi-line -> (<textarea></textarea>)
+--Text fields--
+<input type = "text" name = "nombreDelCampo">
+-The 'name' attribute is submited along with the input data to the server.
+-type: color
+       email
+       range
+       time
+       date
+       month
+       search
+       url
+       datetime
+       number
+       tel
+       week
 
-    - Checkboxes Controls: type = "checkbox"
-    - Radio control: <input type = "radio">
-    - Select box control: <select> <option> </option> </select>
-    - File Upload Box: <input type = "file">
-    - Button controls: <input type = "button">
-        - <input type "...">
-            -submit
-            -reset
-            -button (sirve para triggerear un script del lado cliente)
-            -image  (boton pero con imagen)
+--Textarea--
+Accepts grater quantities of text, spanning possibly multiple lines.
+<textarea name = "..."> Text goes here </textarea> --> doesn't have a 'type' attribute.
+-Attributes: cols, rows
 
-    - Hidden controls: no son visibles, sirven para enviarle información al servidor
+--Radio Buttons--
+Let the user select one option only
+<input type = "radio" name = "aName" value = "Saturday"> Saturday
+<input type = "radio" name = "aName" value = "Sunday"> Sunday
+<input type = "radio" name = "aName" value = "Monday" checked> Monday
+They all must have the same name, so only one of them can be checked at a time
 
-Atributos de input:
-    - type: tipo de input control.
-    - name: le da un nombre al input control.
-    - value: valor inicial en texto, valor de la casilla en checkbox.
-    - size: ancho del texto (texto), altura en un dropdown
-    - maxlength: maximos caracteres utilizables (texto)
-    - checked: si arranca marcado (checkbox/radio)
+--Check boxes--
+Allow users to select multiple fields
+<input type = "radio" name = "aName" value = "Monday" checked> Monday
 
-Atributos de textarea:
-    - rows
-    - cols
-    - name
+--Drop-down lists--
+<select name = "...">
+    <option value = "friday" selected> Friday </option>
+    <option value = "monday"> Monday </option>
+</select>
 
-Atributos de select:
-    - value
-    - selected()
-    - label
+<select name = "..." multiple> --> allows users to select multiple options from the list, holding shift. Many options can be pre-selected.
 
-Atributos de file upload box:
-    - name
-    - accept = "tipo_de_archivo/*"
+---Form Buttons---
+*Submit input: <input type = "submit" name = "submit" value = "textToShow">
+*Submit button: <button type = "submit" > text to show </button>
+
+--File input--
+<input type = "file" name = "...">
+
+----ORGANIZING THE FORM ELEMENTS----
+
+--Labels--
+Provide captions or headings to the form controls, tying them together in any plataform.
+1)
+<label for = "usernameLink"> Username </label>
+<input type = "text", name = "username", id = "usernameLink">
+
+2)
+<label>
+    <input type ="text" name ="username" > Username
+</label>
+
+--Fieldsets--
+Group form controls and labels into organized sections. They are block-level elements.
+<fieldset>
+    <label>
+        Username
+        <input type ="text" name ="username" > 
+    </label>
+    <label>
+    ...
+    </label>
+</fieldset>
+
+--Legend--
+Provides a caption to the fieldset, wraps text describing it
+<fieldset>
+    <legend> Content of the fieldset </legend>
+    <label>
+        ...
+    </label>
+    
+</fieldset>
+
+----MORE ATTRIBUTES FOR INPUTS AND FORMS----
+
+--disabled--
+Turns off the element, no interaction is allowed
+<fieldset disabled> --> applies the 'disabled' property to all inputs inside the fieldset
+<input disabled>
+
+--placeholder--
+Text that dissapears when the element is clicked or gains focus
+<input placeholder="escriba aqui">
+<textarea placeholder="escriba aqui">
+
+--required--
+Must have a value before sending to the server
+<input type ="email" required>
+
+--others--
+accept, formaction,formnovalidate, maxlength, readonly, autocomplete, formenctype, formtarget, min, selectionDirection, autofocus,
+formmethod, max, pattern, step.
+
 
 ----------EMBED-MULTIMEDIA---------
 Un elemento embed representa un punto de integración para una aplicación externa o de contenido interactivo (en otras palabras, un plug-in).

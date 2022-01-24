@@ -22,6 +22,52 @@
 	(See webpack example below)
 	***solves*** No longer loading external scripts, easy to add new dependencies, adds a build step.
 	
+----------------ES6 MODULES----------------------
+----import----
+The static 'import' statement is used to import read only live bindings which are exported by other module.
+Imported modules are in strict mode.
+The inport statement can not be used in embedded script unless the script has a type="module".
+There is also a dynamic 'inport()' function that does not require the type="module" statement.
+
+--Ways of importing--
+import defaultImport from "module-name"; // a module might have a 'default import', we can refer to that
+import * as name from "module-name"; // imports all exports from "module-name"
+	name.doAThing();
+import {export1 as alias, export2, ...} from "module-name";
+import defaultImport {export1, ...} from "module-name";
+import defaultImport, * as name from "module-name";
+import "module-name";
+let promise = import("module-name");
+
+---Dynamic import---
+In a static import all the code in the imported module is evaluated at load time. If you want to load a module on-demand or 
+conditionally, use a dynamic import.
+
+import('./modules/my-module.js').then((module) => { /* do things */ });
+
+
+----export----
+The 'export' statement is used when creating javascript modules to export live bindings to functions so they can be used.
+-Types of exports-
+There are named exports and the default export. There can be many named exports but only one default one.
+1) Named exports:
+	export {myFunction, myVariable}
+	export let variableExportada = 3;
+	export function myFunc(){...}
+2) Default exports:
+	export {myFunc as default};
+	export default function myFunc(){...}
+	export default class {...}
+	
+
+----Usage----
+// in a file called functionOne.js
+const functionOne = function(){...}
+export {functionOne}
+
+// in another js file
+import { functionOne } from './functionOne'
+functionOne();
 
 
 -------------NPM-------------
@@ -134,7 +180,7 @@ CODE ALONG: /home/bruno/Documentos/TheOdinProject/other/webpack-demo
 10) Run 'npx webpack' in the root folder of the project
 --(optional)--
 11) Create a configuration file 'webpack.config.js' in the root folder, for this example...
-"
+[
 const path = require('path');
 
 module.exports = {
@@ -144,55 +190,103 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
 };
-"
-12) Bundle the project with 'npx webpack --config webpack.config.js'
+]
+12) Bundle the project with 'npx webpack --config webpack.config.js' // 'npx webpack' will use it as default
 --(shortcut)--
 13) add a script in package.json like so '"build": "webpack"'
 14) step 13) allows you to bundle the project using 'npm run build'
 
-----------------ES6 MODULES----------------------
-----import----
-The static 'inport' statement is used to import read only live bindings which are exported by other module.
-Imported modules are in strict mode.
-The inport statement can not be used in embedded script unless the script has a type="module".
-There is also a dynamic 'inport()' function that does not require the type="module" statement.
+------Asset management with webpack------
 
---Ways of importing--
-import defaultImport from "module-name"; // a module might have a 'default import', we can refer to that
-import * as name from "module-name"; // imports all exports from "module-name"
-	name.doAThing();
-import {export1 as alias, export2, ...} from "module-name";
-import defaultImport {export1, ...} from "module-name";
-import defaultImport, * as name from "module-name";
-import "module-name";
-let promise = import("module-name");
+--Loading CSS--
+1) $npm install --save-dev style-loader css-loader
+2) In the webpack.config.js, add...
+[
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+]
+3) in the 'index.js' file: "import './style.css' "
 
----Dynamic import---
-In a static import all the code in the imported module is evaluated at load time. If you want to load a module on-demand or 
-conditionally, use a dynamic import.
+--Loading images--
+1) In the webpack.config.js, add a new rule...
+[
+	{
+		test: /\.(png|svg|jpg|jpeg|gif)$/i,
+		type: 'asset/resource',
+	},
+]
+2) In the 'index.js' file: " import Image from './image.png' "
 
-import('./modules/my-module.js').then((module) => { /* do things */ });
+--Loading fonts, Data (.xml, .csv)-- 
+ver cuando sea necesario
 
+------Output management with webpack------
+When we start working with multiple bundles it becomes difficult to load manually all of them in the index.html file.
 
-----export----
-The 'export' statement is used when creating javascript modules to export live bindings to functions so they can be used.
--Types of exports-
-There are named exports and the default export. There can be many named exports but only one default one.
-1) Named exports:
-	export {myFunction, myVariable}
-	export let variableExportada = 3;
-	export function myFunc(){...}
-2) Default exports:
-	export {myFunc as default};
-	export default function myFunc(){...}
-	export default class {...}
-	
+--Split entries and load them manually in the .html--
 
-----Usage----
-// in a file called functionOne.js
-const functionOne = function(){...}
-export {functionOne}
+In the HTML file, load the files like so...
 
-// in another js file
-import { functionOne } from './functionOne'
-functionOne();
+<script src = "./file.bundle.js"></script> / 
+...
+<script src = "./index.bundle.js"></script> /
+
+...and in the 'webpack.config.js' ...
+
+output: {
+	filename: '[name].bundle.js',
+}
+
+--Split entries and automatically generate the index.html file--
+
+1) $npm install --save-dev html-webpak-plugin
+2) in webpack.config.js:
+	plugins: [
+		new HtmlWebpackPlugin({
+			title: 'Output Management',
+		}),
+	],
+
+.) The plugin will generate a new index.html file with the bundles automatically added, and replace your index.html
+
+--Clean the dist/ folder--
+In the webpack.config.js: output: {clean: true,}
+
+------Development Mode and features------
+In the webpack.config.js put 'mode: development,'
+
+--Source maps--
+We usually want to track errors to the source files, not to the bundle.js file. 'Source maps' map your compiled code back to the
+sources. 
+
+1) In webpack.config.js add "devtool: 'inline-source-map', "
+
+----Automatically compile your code----
+We do not want to run '$npm run build' every time.
+
+--Webpack watch mode--
+1) In the package.json add ' "watch": "webpack -- watch" '
+2) Run '$npm run watch', it wont exit the command line because webpack is currently watching your files.
+
+--Using webpack-dev-server--
+Provides you with a rudimentary web server and live reloading
+
+1) npm install --save-dev webpack-dev-server
+2) in webpack.config.js 
+	devServer: {
+		static: './dist',
+	},
+
+	This tells webpak-dev-server to serve the files from the dist directory on localhost:8080. Webpack server does not write any
+	of the output files, instead it keeps bundle files in memory.
+3) In package.json add in "scripts" 
+	"start": "webpack serve --open",
+4) '$npm start' to start
+
+--webpack-dev-middleware-- On another ocasion

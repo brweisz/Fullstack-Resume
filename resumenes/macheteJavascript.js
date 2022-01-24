@@ -472,7 +472,7 @@ class NameOfClass {
 	}
 	methodName(){...};
 	get something(){...};
-	set something(){...};
+	get something(){...};
 }
 
 --unnamed class expression--

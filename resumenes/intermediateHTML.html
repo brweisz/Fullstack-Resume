@@ -1,0 +1,300 @@
+------------Emmet------------
+Emmet is a tool aviable in VScode that should help us to write html and css code more efficiently.
+
+--just write tags--
+span --> <span></span>
+a --> <a href=""></a>
+button --> <button></button>
+link --> <link rel="stylesheet" href="">
+...
+
+--tags with classes--
+tag.className --> <tag class ="className"></tag>
+div.hola --> <div class="hola"></div>
+
+--tags with id--
+tag#id --> <tag id="id"></tag>
+
+--Tags with any attributes--
+button[type="button"] --> <button type="button"></button>
+
+Note: You can combine css selectors, for example:
+    tag#myId.greenTall.small --> <tag id="myId" class="greenTall small"></tag>
+Note: If the tag is ommited, assumes a <div>, for example:
+    #myId.myClass --> <div id="myId" class="myClass"></div>
+
+
+--Wrap with abreviation--
+(Shift+Ctrl+A) // if used directly in the document, generates it without wrapping anything.
+
+tag_name --> <tag_name> .. </tag_name>
+> --> child (nesting)
++ --> sibling (nesting)
+^ --> climb up (nesting)
+{} --> text inside an element
+* --> how many
+$ --> inside a {} (or for a class name), after a *, is replaced by the number of the element it corresponds
+() --> grouping (nesting)
+
+--Toggle coment inline--
+(ctrl+/)
+
+--Remove Tag--
+(ctrl+k)
+
+////------------------------------------FORMS------------------------------------////
+
+<form method = "..." action = "..."> 
+    ....
+</form>
+
+---Form attributes---
+
+    - action = "script_url" -> url del script backend que va a procesar los datos
+    - method = "GET / POST" -> GET if we want to retrieve somethong from a server.
+                               POST if we want to change something on the server.
+    - target = "_blank / self" -> especifica el contexto en el que el resultado del script va a ser mostrado
+    - enctype -> forma en la que el navegador va a encriptar la informacion enviada por el form
+
+---Form Controls---
+
+There are many way to collect data in a form:
+
+--Text fields--
+<input type = "text" name = "nombreDelCampo">
+-The 'name' attribute is submited along with the input data to the server.
+-type:  color
+        password
+        email
+        number
+        date
+        range
+        time
+        month
+        search
+        url
+        datetime
+        tel
+        week
+
+--Textarea--
+Accepts grater quantities of text, spanning possibly multiple lines.
+<textarea name = "..."> Text goes here </textarea> --> doesn't have a 'type' attribute.
+-Attributes: cols = 30, rows = 2, default, focus, disabled, 
+             wrap = soft | hard | off
+
+--Radio Buttons--
+Let the user select one option only
+<input type = "radio" name = "aName" value = "Saturday"> Saturday
+<input type = "radio" name = "aName" value = "Sunday"> Sunday
+<input type = "radio" name = "aName" value = "Monday" checked> Monday //default
+They all must have the same name, so only one of them can be checked at a time
+
+--Checkboxes--
+Allow users to select multiple fields
+<input type = "checkbox" name = "aName" value = "Monday" checked> Monday
+<input type = "checkbox" name = "aName" value = "Tuesday"> Tuesday
+
+--Dropdown lists--
+<select name = "...">
+    <option value = "friday" selected> Friday </option> //default
+    <option value = "monday"> Monday </option>
+</select>
+
+<select name = "..." multiple> --> allows users to select multiple options from the list, holding shift. Many options can be pre-selected.
+
+--Outoput--
+
+---Form Buttons---
+*Submit input: <input type = "submit" name = "submit" value = "textToShow">
+*Submit button: <button type = "submit" > text to show </button> //submit the form
+*Reset button: <button type = "reset" > text to show </button> // reset the form
+*Normal button: <button type = "button" > text to show </button> // no default behaviour
+
+--File input--
+<input type = "file" name = "...">
+
+----ORGANIZING THE FORM ELEMENTS----
+
+--name--
+All inputs must ALLWAYS have a 'name' attribute, that can be tagged by the backend.
+The fields in the .json the server recieves have the names provided.
+
+--Labels--
+Provide captions or headings to the form controls, tying them together in any plataform.
+
+1) Usual way of using it
+<label for = "usernameLink"> Username </label>
+<input type = "text", name = "username", id = "usernameLink">
+The 'for' attribute in the label must match the 'id' attribute in the input (or other form element).
+
+2)Another way of using it
+<label>
+    <input type ="text" name ="username" > Username
+</label>
+
+--Fieldsets--
+Group form controls and labels into organized sections. They are block-level elements.
+<fieldset>
+    <label>
+        Username
+        <input type ="text" name ="username" > 
+    </label>
+    <label>
+    ...
+    </label>
+</fieldset>
+They are usually used to hold radio buttons and checkboxes togheter.
+
+--Legend--
+Provides a caption to the fieldset, wraps text describing it
+<fieldset>
+    <legend> Content of the fieldset </legend>
+    <label>
+        ...
+    </label>
+    
+</fieldset>
+
+----MORE ATTRIBUTES FOR INPUTS AND FORMS----
+
+--disabled--
+Turns off the element, no interaction is allowed
+<fieldset disabled> --> applies the 'disabled' property to all inputs inside the fieldset
+<input disabled>
+
+--placeholder--
+Example text that dissapears when the element is clicked or gains focus
+<input placeholder="escriba aqui">
+<textarea placeholder="escriba aqui">
+
+--autocomplete--
+Autocompletes the field (hints)
+
+--autofocus--
+Focus the field on page load
+
+--readonly--
+Field not editable (read-only), but still will be validated and submitted.
+
+--others--
+accept, formaction,formnovalidate, maxlength, readonly, autocomplete, formenctype, formtarget, min, selectionDirection, autofocus,
+formmethod, max, pattern, step.
+
+----Form validation attributes----
+Any form element that doesn't match the requirements, matches the :invalid CSS pseudo-class, otherwise, matches the :valid pseudo-class.
+
+--required--
+Must have a value before sending to the server
+<input type ="email" required>
+
+CSS: the input element matches the :required pseudo-class.
+
+--minlength-- 
+In a text field, the minimum amount of characters that the user should input.
+<input type ="text" minlength = "7">
+
+--maxlength--
+In a text field, the maximum amount of characters that the user should input.
+<input type ="text" maxlength = "7">
+
+--min/max--
+In a number, date or time input, we can restrict the min/max value entered by the user.
+<input type="number" min = "3" max = "20">
+
+--pattern--
+We can ensure the user input matches certain pattern using regular expressions.
+<input type ="text" pattern = '\\d{5}' title="please enter 5 digits in a row">
+'title' displays an aditional message to the user after a wron input 
+Note: this can only be used in <input> elements.
+
+----FORM VALIDATION USING JAVASCRIPT (frontend)----
+
+--The Constraint Validation API--
+
+The Constraint Validation API provides some methods an properties aviable in form elements:
+
+.validationMessage --> message describing the validation constraits that the control doesn't satisfy. If none, returns "".
+.validity --> returns a ValidityState object that has properties describing the validity state of the element.
+    patternMismatch
+    tooLong
+    tooShort
+    rangeOverflow
+    rangeUnderflow
+    typeMismatch //for example, <input type="mail"> will return 'false' if the value is not a valid email.
+    valid
+    valueMissing
+.willValidate --> true if the element will be validated when the form is submitted.
+--
+.checkValidity() --> true/false. if it's invalid, it also triggers an invalid event on the element.
+.reportValidity() --> reports an invalid fields using events (triggers the event).
+.setCustomValidity(message) --> adds a custom error message to the element.
+
+Example of custom invalid field message:
+const email = document.querySelector("#email");
+email.addEventListener("input", function(ev){  //'input' event is triggered each time the user changes the content of the field.
+                                                // other posible event to use is the 'submit' event.
+    if (email.validity.typeMismatch){
+        email.setCustomValidity("Expecting an email adress!");
+        email.reportValidity();
+    } else {
+        email.setCustomValidity("");
+    }
+})
+
+Note: the 'invalid' event does not bubble! The handler must be attached directly to the form element.
+
+-------TABLES----------
+--Basic Table--
+
+<table>
+    <colgroup> //Used to tag columns as a whole.
+        <col> First col</col> 
+        <col>Second col</col>
+    </colgroup>
+    <tr>
+        <th colspan = "2"> Large content </th> 
+    </tr>
+    <tr>
+        <td> Small content </td> <td> Small content </td>
+    </tr>
+    <tr>
+        <td colspan = "2"> Tall content </td> <td> Small content</td>
+    </tr>
+    <tr>
+        <td> Small content</td>
+    </tr>
+</table>
+
+--Advanced table--
+caption --> title
+thead, tbody, tfoot --> don't add any visual effect, but can be used for organization and styling.
+
+<table>
+    <caption> Column Title </caption>
+    <colgroup> //Used to tag columns as a whole.
+        <col> First col</col> 
+        <col>Second col</col>
+    </colgroup>
+    <thead class = "table-head">
+        <tr>
+            <th> A </th> <th> B </th> 
+        </tr>
+    <thead>
+    <tbody class = "table-body">
+        <tr>
+            <td> Small content </td> <td> Small content </td>
+        </tr>
+    </tbody>
+    <tfoot class = "table-footer">
+        <tr>
+            <td> Final content </td> <td> Final content </td>
+        </tr>
+    </tfoot>
+</table>
+
+Note: tables can be nested inside tables. For example, put a whole table inside a <td> <table> ...</table></td>
+
+-other attributes-
+scope: <th scope = "row | col"> --> specifies that the header is for a row/column.
+       <th scope = "rowgroup | colgroup"> --> same but used in headers for headers.

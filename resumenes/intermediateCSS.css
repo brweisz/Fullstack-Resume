@@ -1,0 +1,147 @@
+-------------------------Styling Forms-------------------------
+General rules:
+1) Browsers have its own default styling, so we have to override it.
+2) Radio buttons and checkboxes are difficult to style. Date pickers are impossible.
+
+Easy elements: form, fieldset, legend, input (single-line, except type='search'), textarea, buttons, label, output.
+Bad elements: checkboxes, radio buttons, <input type="search">
+Ugly elements: <input type="color | range | file">, select, option, optgroup, datalist, progress, meter.
+
+Recommendations:
+-font-
+button, input, select, textarea{
+	font-family:  inherit;
+	font-size: 100%;
+} 
+
+button, input, select, textarea{
+	width:  150px;
+	padding:  10px;
+	margin: 0px;
+	box-sizing: border-box;
+} 
+
+----Form validation----
+
+input:invalid{
+	border-color: red;
+}
+input:valid{
+	border-color: green;
+}
+
+--Other pseudo-classes--
+:focus --> element gains focus
+:focus-within --> child element gains focus
+:required 
+:optional --> not required attribute
+:in-range
+:out-of-range
+:disabled
+:enabled
+:read-only --> a field with the 'read-only' attribute
+:read-write: --> not read-only
+:checked --> for checkboxes and radio buttons
+
+--Pseudo-elements--
+Warning, pseudo-classes and pseudo-elements have the same specificity!
+
+input[type="email"]::placeholder{color: blue}
+
+---------------SVGs----------------
+SVG (Scalable Vector Graphics) is an image format that can scale to any size without increasing its file size. They can be modified through 
+css and javascript. SVG images are defined through XML (Extensive Markup Language). 
+
+XML:
+-Human readable.
+-Interoperable with HTML.
+-In an HTML file, XML elements are targeteable.
+-Not great for very detailed images.
+-Adobe Ilustrator creates SVG.
+-You can download an SVG and modify it a bit.
+
+XML can be linked or inline in the HTML document.
+Link: html --> <img> tag 
+	  css ---> background-image: url(./my-image.svg)
+	Note: the contents of the svg wont't be accessible from the page if it's linked (unless react or webpack).
+
+Inline:
+
+<svg xmlns = "http://www.w3.org/2000/svg" viewBox= "0 0 100 100">
+	/*xmlns = xml namespace, indicates what specific xml format will be used*/
+	/*viewBox defines the bounds of the svg. The points in the xml will refer to this coordinates. Also defines aspect ratio and origin*/ 
+	<rect x=0 y=0 width=100 height=100 fill="burlywood"/> /*Defines a rectangle*/
+	<path d="M 10 10 H 90 V 90 L 10 60" fill="transparent" stroke="black" stroke-width="3"> /*Defines a path*/
+	<circle cx=50 cy=50 r=20> /*Defines a circle*/
+	<g> /*Container for other svg elements*/
+		<text x="20" y="25" rotate="10">Hello!</text> /*text*/
+      	<use href="#hello-text" x="-10" y="65" fill="white"/> /*Duplicate another node*/
+	</g>
+</svg>
+
+-Other grphic elements-
+-ellipse
+-image
+-line
+-polygon
+-polyline
+-...
+
+------tables------
+Headers --> Default: bold & centered
+
+
+---------CSS VALUES & UNITS---------
+
+--------VALUES-------
+CSS expressions are composed by tuples of <property: value> and there are many value types. A value type is a collection of
+allowable values.
+
+--Colors--
+Colors can be expressed by IDENTIFIERS (red, black, ...), by the rgb() function, the hexadecimal notation, etc.
+-HSLA notation-
+hsl(hue [0,360],saturation[0-100%], lightness[0-100%], transparency[0,1])
+
+--Numbers, lengths, percentages--
+-integer: whole numbers.
+-number: decimal numbers.
+-dimension: number with an unit attached to it. Dimension has some sub-categories:
+	-length
+	-angle
+	-time
+	-resolution
+-percentage: represents a fraction of some other value. Example: an elements length is allways relativa to its parent's. (50%).
+
+------Length Units------
+
+--Absolute Units--
+Absolute units are those that are allways the same in any context: [px], cm, mm, Q, in, ...
+
+--Relative Units--
+Units that change based on their context.
+
+[]1em is the font size of an element. An 'em' unit inside an element is relative to the font-size of its parent (for length) and its own 
+	(for typographical properties).
+[]1rem is the font size of the root element (in general <html>).
+[]1ex is the x-height of the element's font.
+
+--Viewport Units---
+
+1vh = 1% of the viweport height.
+1vw = 1% of the viweport width.
+1vmin = 1% of the viweport smallest dimension.
+1vmax = 1% of the viweport larger dimension.
+
+------Images------
+The <image> value type is used wherever an image is a valid value.
+-url("./image.png")
+-linear-gradient()
+
+------Position------
+The <position> value type represents a ser of 2d coordinates. It is used to position an item (such as a background image using the 
+background-position property). Values: (top|left|bottom|right|center|<length>)^2 <-- offsets in x and y
+
+------Functions------
+Function is a value type in css.
+
+-calc() --> simple calculations inside css. Ex: width: calc(20% + 100px);

@@ -76,6 +76,7 @@ element types, or mix both.
         -HEX: #3fd57d / #3fd57d80 (transparency as the last component)
         -RGB: rgb(34,56,73) / rgba(34,56,73,0.3) (transparency is [0,1])
         -HSL: hsl(15, 82%, 30%) / hsla(15, 82%, 30%, 0.3) (transparency is [0,1])
+[]opacity: [0,1]
 
 []font-family: sets the font of the text contained in that element.
     This property accepts one or many comma-separated values of two kinds, being the order the priority

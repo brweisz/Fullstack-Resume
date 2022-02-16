@@ -1,0 +1,218 @@
+Five attributes for positioning elements in css: display, position, z-index, float, clear.
+
+
+
+----------------------------------------Position---------------------------------------
+
+Position property doesn't cascade.
+
+Positioned element: non static.
+Non positioned element: ay other than static.
+
+1) static:
+
+	- Default value for elements.
+
+2) Relative:
+
+	- Lets you position an element relative to its static default position.
+	- Offset properties for relative positioning:
+		* top: moves the element down from the top.
+		* bottom: moves the element up from the bottom.
+		* left: moves the element right from the left.
+		* right: moves the element left from the right.
+	- Moving a relative element does not affect the position of other elements at all, they can superpose without any problem.
+
+3) Absolute:
+
+	- All other elements on the page act like the absolute element isn't there. The element is removed from the normal flow of the doc.
+	- The absolute element is positioned relative to its closest positioned parent element by the offset properties, or root if any.
+	- The element scrolls normally with the rest of the document.
+
+4) Fixed:
+
+	- Fixed elements are removed from the normal flow of the document.
+	- The fixed element stays in the same position, even when the user scrolls the page.
+	- The offset properties are relative to the viewport.
+
+	- Uses: navigation bar, floating chat buttons, etc.
+
+5) Sticky:
+
+	- Keeps the element in place when the user scrolls, but sticks to a specified position as the page is scrolled further.
+	- They are not taken out of the normal flow of the document.
+
+
+*) Absolute elements inside a relative container:
+
+
+----------------------------------------Z-Index---------------------------------------------------------
+
+
+Boxes sometimes can overlap with each other when we play with different positionings. The z-index property controlls how back or forward 
+the elements are on the page when they overlap (controlls the depth).
+
+Example: {z-index:  1;}
+
+
+
+----------------------------------------Float----------------------------------------------------------
+----------------------------------------Clear----------------------------------------------------------
+
+
+----------------------------------------Display----------------------------------------------------------
+
+
+
+-----------THE BOX MODEL-----------------
+Margin: space between the box and the boxes next to it. Can be edited with 'margin' and other properties.
+Padding: space between the edge of a box ant its content. Can be edited with 'padding' and other properties.
+Border: space between the margin and the padding. Can be edited with 'border' and other properties.
+Content: area where the content is displayed. Can be edited with width and height. 
+
+
+Inner and Outer display types.
+-Outer display type: how the box behaves in relation to surrounding boxes.
+    *block: (display:  block) --> Stacked on one another
+        - each box breaks into a new line.
+        - box extends in the inline direction to fill all the space avaiable in its container.
+        - width and height are respected.
+        - Padding, margin and border push other elements away from the box
+
+    *inline: (display:  inline) --> Next to the previous element.
+        - does not break into a new line.
+        - width and height do not apply.
+        - Vertical padding, margins and borders apply, but don't push elements away.
+        - Horizontal padding, margins and borders apply and push elements away.
+
+	*inline-block: (display: inline-block)
+	    -respects the width and height properties
+	    -margin, border and padding cause other blocks to be pushed away as in a block element.
+	    -it does not break into a new line (you can put a block element in a line without breaking it).
+
+
+-Inner display type: how the elements inside that box are laid out. 
+    *normal flow: behave like any block and inline element. 
+    * 'display: flex;' : any DIRECT children of the box will be laid out according to the flexbox spec. 
+    
+[] display: block / inline --> change the outer display.
+
+Standard CSS box model: width and heigth define the content box size.  <----- DEFAULT
+Alternative CSS box model: width and heigth define the visible box size (everything but the margin). <-- box-sizing: border-box
+html{
+    box-sizing:  border-box;
+}
+*, *::before, *::after{
+    box-sizing:  inherit;
+}
+
+----Margins----
+
+[]margin-top: 40px;
+[]margin-bottom: 40px;
+[]margin-right: 40px;
+[]margin-left: 40px;
+
+*Margins can have negative values.
+
+Margin Collapsing: if two vertical margins touch...
+    -if they're positive, then they will combine to form a single margin, the max margin of the two. 
+    -if one is negative and the other positive, they will add up.
+    -if they're negative, then they will combine to form a single margin, the min margin of the two. 
+
+[]margin: 40px 40px 40px 40px ---> (top, right, bottom, left)
+          auto 
+          3px auto --> (top/bottom, right/left)
+
+----Borders----
+
+Each side individually:
+[]border-top: 40px;
+[]border-bottom: 40px;
+[]border-right: 40px;
+[]border-left: 40px;
+
+Properties for all sides:
+[]border-width
+[]border-color
+[]border-style
+
+Properties for individual sides:
+[]border - top/bottom/left/right - width/style/color
+
+
+----Padding----
+
+*Can't have negative values, it's used to push content away from the borders.
+[]padding-top: 40px;
+[]padding-bottom: 40px;
+[]padding-right: 40px;
+[]padding-left: 40px;
+
+
+
+---------------------------------FELXBOX-----------------------------------
+
+
+
+Flexbox is a way to arrange items into rows or columns.
+Flaxbox is a toolbox of properties, some belong to the 'flex container' and some to the 'flex items'
+
+Flex container -> Is a container (like div) that has a {display: flex} property.
+Flex item -> Is an item that lives DIRECTLY inside of a flex container.
+
+------Direction of elements in a container------
+Any flex container has 2 axes: main axis and cross axis. *
+	[]flex-direction: column / row / colum-reverse / row-reverse --> default is 'row'. 
+
+Default behaviour: items display in a row, from the start edge of the main axis (row), items do not stretch in the main direction, but can shrink,
+				   items will stretch to fill the cross axis. []flex-basis: auto & []flex-wrap: nowrap.
+
+()Wrapping --> flexbox is a one-dimenssional model but we can make items wrap onto multiple lines, but in that case we have to consider each line as a flex container itself. We have to set 
+		[]flex-wrap: wrap; 
+	so when there are too many items, instead of shrinking or surpassing its container, they will display in a new line.
+
+Shorthand: flex-flow = flex-direction + flex-wrap
+
+
+------Targeting items directly------
+The next properties change the way aviable space is distributed amongst items in the same container in the main axis.
+
+[]flex-basis: Sets the initial size of an item in terms of the space it leaves as aviable space.
+	     * auto --> tells the item to search for a width/height declaration.
+	     * x% --> percentaje of the container;
+	     * x px/em --> explicit size
+	     * content --> size based in the conent
+
+[]flex-grow --> When set to a positive integer it refers to the item's 'growth factor' in relation to the other items in the container. 
+
+[]flex-shrink --> Only applies if the size of all flex items is greater than the size of their container. A greater value ends up with a smaller size.
+
+
+[]flex: ... is a shorthand for 3 properties, in the order...
+	-flex-grow: 0
+	-flex-shrink: 1
+	-flex-basis: 0% (if keyword 'flex' is present but not the flex-basis-part)/ auto (if keyword 'flex' is not present)
+	(default values)
+
+[]flex: initial --> default values (0,1,auto)
+		auto --> (1,1,auto) full flexible
+		none --> (0,0,auto) full inflexible
+
+-----------------
+[]align-items: aligns the items in the cross axis.
+							stretch --> items take all the aviable space (default behaviour)
+							center --> centers the items	
+							flex-start --> line up at the start of the container
+							flex-end 
+
+[]justify-content: aligns items through the main axis
+									space-between  --> separates the items evenly, aligning them through the main axis.
+									space-around --> even space at both sides of the item
+									space-evenly -->
+									flex-start --> at the begining of the axis
+									flex-end 
+									center
+
+
+[]gap: 8px  --> adds a gap between items (not against the edges).

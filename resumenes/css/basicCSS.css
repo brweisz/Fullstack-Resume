@@ -35,13 +35,14 @@ Note: there can only be an unique id per element.
 
 Grouping selectors
 ------------------
-We often have 2 classes that share some of its expressions, so we want to compress that information somehow:
-.read,
+We often have 2 selectors that share some of its expressions, so we want to compress that information somehow:
+#read,
 .unread {
     color: white;
     background-color: black;
 }
-Then, each class will have its own expressions:
+
+Then, each selector can have its own expressions:
 .read {
     ...
 }
@@ -54,17 +55,16 @@ Chainin Selectors
 
 If we want to apply rules only to elements that belong to some classes, we can use the rule: 
 
-.class1.class2 {
+.class1.class2 { /*without a space*/
     color: yellow;
 }
 
 Descendant Combinator
 ---------------------
-Maybe we want to apply rules only to an element of a certain class 'classA', only if that element is a descendent of another 
-element of class 'classB'. You can chain as many classes as you want and become really specific. Instead of classes you can use
-element types, or mix both.
+Maybe we want to apply rules only to an element of a certain selector 'selectorA', only if that element is a descendent of another 
+element of selector 'selectorB'. You can chain as many selectors as you want and become really specific.
 
-.classB .classA{
+.selectorB .selectorA{
     color: red;
 }
 
@@ -108,7 +108,7 @@ Determines which rules are actually applied to an html element.
     3) type
     4) universal
 This table acts as a tie breaker when there is a conflict.
-Also, the most class selectors a rule has, the more its specificity (therefore, priority)
+Also, the most selectors a rule has, the more its specificity (therefore, priority)
 
 If all factors have been considered and there is no specificity winning in a situation, the rule that
 wins is the last one in the .css file.
@@ -141,93 +141,6 @@ Inline CSS -> In the html file...
 * Modify an element's CSS's class.
 * Add a class to an element's CSS's. 
 * Change the dimension of an element using the Box Model.
-
------------THE BOX MODEL-----------------
-Margin: space between the box and the boxes next to it. Can be edited with 'margin' and other properties.
-Padding: space between the edge of a box ant its content. Can be edited with 'padding' and other properties.
-Border: space between the margin and the padding. Can be edited with 'border' and other properties.
-Content: area where the content is displayed. Can be edited with width and height. 
-
-
-Inner and Outer display types.
--Outer display type: how the box behaves in relation to surrounding boxes.
-    *block: (display:  block) --> Stacked on one another
-        - each box breaks into a new line.
-        - box extends in the inline direction to fill all the space avaiable in its container.
-        - width and height are respected.
-        - Padding, margin and border push other elements away from the box
-    *inline: (display:  inline) --> Next to the previous element.
-        - does not break into a new line.
-        - width and height do not apply.
-        - Vertical padding, margins and borders apply, but don't push elements away.
-        - Horizontal padding, margins and borders apply and push elements away.
-
--Inner display type: how the elements inside that box are laid out. 
-    *normal flow: behave like any block and inline element. 
-    * 'display: flex;' : any DIRECT children of the box will be laid out according to the flexbox spec. 
-    
-[] display: block / inline --> change the outer display.
-
-Standard CSS box model: width and heigth define the content box size.  <----- DEFAULT
-Alternative CSS box model: width and heigth define the visible box size (everything but the margin). <-- box-sizing: border-box
-html{
-    box-sizing:  border-box;
-}
-*, *::before, *::after{
-    box-sizing:  inherit;
-}
-
-Margins
--------
-[]margin-top: 40px;
-[]margin-bottom: 40px;
-[]margin-right: 40px;
-[]margin-left: 40px;
-
-*Margins can have negative values.
-
-Margin Collapsing: if two vertical margins touch...
-    -if they're positive, then they will combine to form a single margin, te max margin of the two. 
-    -if one is negative and the other positive, they will add up.
-    -if they're negative, then they will combine to form a single margin, te min margin of the two. 
-
-[]margin: 40px 40px 40px 40px ---> (top, right, bottom, left)
-          auto 
-          3px auto
-
-Borders
--------
-Each side individually:
-[]border-top: 40px;
-[]border-bottom: 40px;
-[]border-right: 40px;
-[]border-left: 40px;
-
-Properties for all sides:
-[]border-width
-[]border-color
-[]border-style
-
-Properties for individual sides:
-[]border-top/bottom/left/right-width/style/color
-
-
-Padding
--------
-*Can't have negative values, it's used to push content away from the borders.
-[]padding-top: 40px;
-[]padding-bottom: 40px;
-[]padding-right: 40px;
-[]padding-left: 40px;
-
-
-
-inline-block
-------------
-[]display: inline-block
-    -respects the width and height properties
-    -margin, border and padding cause other blocks to be pushed away as in a block element.
-    -it does not break into a new line (you can put a block element in a line without breaking it).
 
 
 hover

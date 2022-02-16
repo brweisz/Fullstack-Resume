@@ -1,0 +1,29 @@
+We handle all audio operations inside an audio context. Basic audio operations are performed with Audio Nodes, linked togheter to form an Audio Roution Graph. We also have one or more Audio Sources for a context and one or more Audio Targets.
+
+Audio nodes are linked by their inputs and outputs. The chains typically start with one or more sources, that provide arrays of sound intensities at very small timeslices (a lot per second). When the sound comes from an audio file, the sources are AudioBufferSourceNode and MediaElementAudioSourceNode. The output of a node can be linked to the input of another, and finally be linked to the input of a destination 'BaseAudioContext.destination' (that will send the sound to the speakers for example) only if we want to hear the sound.
+
+Basic steps:
+1) Create audio context
+2) Create sources for the context
+3) Create effect (or analyze) nodes
+4) Choose final destination of audio
+5) Link the sources to the nodes to the destination
+
+------- Basic tutorial -------
+
+let audioContext = new AudioContext()
+
+<audio src = "track.mp3"></audio>
+
+const audioEl = document.querySelector("audio");
+const track = audioContext.createMediaElementSource(audioEl);
+track.connect(audioContext.destination);
+
+//const gainNode = audioContext.createGain();
+//track.connect(gainNode).connect(audioContext.destination);
+
+let analyzer = audioContext.createAnalyzer();
+track.connect(analyzer);
+analizer.connect(audioContext.destination);
+
+

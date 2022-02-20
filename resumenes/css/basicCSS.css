@@ -68,35 +68,6 @@ element of selector 'selectorB'. You can chain as many selectors as you want and
     color: red;
 }
 
------------------------PROPERTIES--------------------------
-[]color: sets the color of the text contained in the element.
-[]background-color: it self-explains. 
-    These properties accept 
-        -a keyword (red, transparent, etc.)
-        -HEX: #3fd57d / #3fd57d80 (transparency as the last component)
-        -RGB: rgb(34,56,73) / rgba(34,56,73,0.3) (transparency is [0,1])
-        -HSL: hsl(15, 82%, 30%) / hsla(15, 82%, 30%, 0.3) (transparency is [0,1])
-[]opacity: [0,1]
-
-[]font-family: sets the font of the text contained in that element.
-    This property accepts one or many comma-separated values of two kinds, being the order the priority
-        -a font family name between quotes, like "Times New Roman"
-        -a generic family name without quotes, like sans-serif
-
-[]font-size: sets the size of the font, __px
-[]font-weight: affects the boldness of the text
-    This value can be
-        -keyword: bold
-        -number: [100, 200, ..., 900] 
-[]text-align: start, end, center, justify, left, right, match-parent. 
-[]border-radius: 10px (curvature at the borders)
-
-For images:
-    img {
-        height: auto; //mantains the original ratio of the image, in relation to the specified width.
-        width: 500px;
-    }
-Note: an image should ALLWAYS have its height and width specified, even in auto.
 
 -----------------------CASCADE--------------------------
 Determines which rules are actually applied to an html element. 
@@ -142,9 +113,3 @@ Inline CSS -> In the html file...
 * Add a class to an element's CSS's. 
 * Change the dimension of an element using the Box Model.
 
-
-hover
------
-selector:hover{
-
-} --> specifies the rule that aplies to the selector when the mouse hovers the element

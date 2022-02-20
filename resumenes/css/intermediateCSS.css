@@ -48,7 +48,10 @@ Warning, pseudo-classes and pseudo-elements have the same specificity!
 
 input[type="email"]::placeholder{color: blue}
 
----------------SVGs----------------
+
+---------------------------------------SVGs---------------------------------------
+
+
 SVG (Scalable Vector Graphics) is an image format that can scale to any size without increasing its file size. They can be modified through 
 css and javascript. SVG images are defined through XML (Extensive Markup Language). 
 
@@ -91,7 +94,7 @@ Inline:
 Headers --> Default: bold & centered
 
 
----------CSS VALUES & UNITS---------
+----------------------------------CSS VALUES & UNITS----------------------------------
 
 --------VALUES-------
 CSS expressions are composed by tuples of <property: value> and there are many value types. A value type is a collection of
@@ -141,7 +144,212 @@ The <image> value type is used wherever an image is a valid value.
 The <position> value type represents a ser of 2d coordinates. It is used to position an item (such as a background image using the 
 background-position property). Values: (top|left|bottom|right|center|<length>)^2 <-- offsets in x and y
 
-------Functions------
-Function is a value type in css.
 
--calc() --> simple calculations inside css. Ex: width: calc(20% + 100px);
+---------------------------------------ADVANCED SELECTORS---------------------------------------
+
+-------- Parent and sibling combinators --------
+
+> : child combinator
++ : adjacent sibling combinator
+~ : general sibling combinator
+
+.container > div : only selects direct div descendants of the container class.
+
+<div class="container">
+	<div> ---> selected
+		<div> ---> not selected
+
+.container > div > div: only selects nephew div descendants of the container class.
+
+<div class="container">
+	<div> ---> not selected
+		<div> ---> selected
+
+.container + div: only selects the elements on the same level that the ones that have a .container class. The element selected
+				  is the next one that matches.
+
+<div class = "container">
+<div> ---> selected 
+<div> ---> not selected
+
+.container + div + div: only selects the elements on the same level that the ones that can be selected with (.container+div). 
+						The element selected is the first one that matches.
+
+<div class = "container">
+<div> ---> not selected 
+<div> ---> selected
+
+.container ~ div: only selects the elements on the same level that the ones that have a .container class. It selects all the
+				  elements that match.
+
+<div class = "container">
+<div> ---> selected 
+<div> ---> selected
+
+
+-------- Pseudo selectors --------
+
+---- Pseudo classes ----
+
+Pseudo classes offer different ways to target elements. They have the same specifity and can be chained like regular selectors.
+A pseudo class is a keyword added to a selector that specifies a special state of the selected elements. There are many types 
+of pseudo classes:
+
+- Dynamic and user interaction
+	:focus --> currently selected
+	:hover --> mouse over it
+	:active --> currently being clicked
+	:link --> <a> tags with an href property
+	:visited --> link already visited
+
+- Structural -- position in relation to the DOM
+	:root --> class that represents the top level of the document. Here go the global css rules and custom variables.
+	:first-child // :last-child --> match the first or last sibling of the selector.
+	:empty --> it has no childs
+	:only-child --> only has one child
+	:nth-child(7) --> is the 7-th child
+		      (7n) --> is a 7th child 
+		      (7n+3) --> specifies an offset
+		      (even) --> selects even childs
+    :first-of-type 
+    :last-of-type
+    :only-of-type
+    :not(aSelector)
+
+
+---- Pseudo Elements ----
+
+Pseudo elements are more abstract than pseudo classes: they allow us to affect parts of the HTML that aren't elements at all.
+
+::marker --> lets you give style to the bullets of a list independently of the list itself.
+::first-letter --> lets you style the first letter.
+::first-line -->  lets you style the first line.
+::before // ::after --> lets you add extra elements to the page with css.
+	
+	Example:
+
+	div::before{
+		content: "Text before each div";
+	}
+	div::after{
+		content: "Text after each div";
+	}
+
+	content value can be: 
+		- a string.
+		- an image: url(./path/to/image.jpg)
+		- etc
+
+::selection --> lets you style the selection (when you select text with te mouse, the background has a different style).
+
+-------- Attribute selectors --------
+
+[attribute]  --> selects each element with the given attribute.
+selector[attribute] --> selects elements targeted by the selector with the given attribute.
+[attribute = 'value'] --> selects each element with the given attribute/value pair.
+
+[attribute ^= 'val'] --> selects each element with the given attribute/value pair, matches value from the start.
+[attribute $= 'lue'] --> selects each element with the given attribute/value pair, matches value from the end.
+[attribute *= 'alu'] --> selects each element with the given attribute/value pair, matches value in any part.
+
+
+
+
+----------------------------------------FUNCTIONS----------------------------------------
+
+
+CSS functional notation is a value type in css. Css doesn't allow to create our own functions.
+
+- rgb(0, 42, 255)
+- linear-gradient(90deg, blue, red); /*0deg -> top to bottom, 90deg -> left to right*/
+
+- calc() --> simple calculations inside css. Ex: width: calc(20% + 100px); /* It can mix units */
+		 --> function can be nested: calc( calc(...)+calc(...) )
+		 --> inside a calc, we can use var(propertyName) to access a property value inside the rule
+
+	Example:
+
+	div{
+		height:  10px;
+		width:  calc(var(height) + 5px);
+	}
+
+- min(aLengthUnit, anotherLengthUnit) --> Dynamically finds the smallest viewport value between the two.
+- max(a,b,c,d,...)
+
+-clamp(smallestValue, idealValue, largestValue) = max(smallestValue, min(idealValue, largestValue))
+	The idea is for idealValue to be dynamic, like 50%
+	This can be used for dynamic container and font sizes, etc.
+
+
+--------- Types of functions --------
+
+- Transform functions: used in the 'transform' property.
+- Math functions: allows css numeric values to be written as math expressions.
+- Filter functions: represent graphical effects that can change an input image, used in 'filter'/'backdrop-filter'.
+- Color functions: Specify different color representations. Used wherever a color is valid.
+- Image functions: Used wherever an <Image> value type would be expected.
+- Counter functions: Used with the 'content' property ???
+- Font functions: 
+- Shape functions: Used in place of a <basic-shape> data type.
+- Reference functions: Used to reference a value defined elsewhere. 
+- Grid functions: Used to define a CSS grid.
+
+
+------------------------------ MEDIA QUERIES ---------------------------------------
+
+Media queries are usefull when you want to modify your web page depending on the device and its characteristics. 
+A media query is composed of an optional 'media type' and any number of 'media feature expressions'.
+
+*Media types: define the category of the device (printer, screen, etc.).
+*Media feature: describe a specific characteristic of the user agent, output device or enviroment.
+*Logical operators: used to compose a complex media query (not, and, only);
+
+A media query computes to true when the media type matches the device on which a document is being displayed and all media query
+features compute as true.
+
+Examples:
+
+@media { ... }
+@media print { ... }
+@media all { ... }
+@media screen, print { ... }
+
+@media (hover:  hover){ ... } /*Applies if the primary input mechanism (mouse) can hover over elements*/
+@media (max-width: 12345px){ ... } /*Applies if the browsers viewport is equal or narrower than 12345px*/
+
+
+	(seguir en otro momento)
+
+
+-------------------------- CUSTOM PROPERTIES -----------------------------------
+
+
+CSS variables allow us to reference a CSS value through all the file. They can be used to avoid redundancy.
+
+Declaration:
+
+selector{
+	--custom-property-name: custom-property-value;
+}
+
+Reference:
+
+selector{
+	var(--custom-property-name, fallback-value); /*fallback-value wil be used if there's a problem with the reference*/
+}
+
+The scope of a custom property is the same declaration block it has been declared plus all descendants of elements that use
+that declaration block. This means that two elements can have the same class, whose block references a variable, but only
+one of them is in the scope of the variable. In other words, custom properties do inherit like regular ones.
+
+One way of creating global variables is declaring them inside a 
+:root{ 
+	--global-variable-name: red;
+} 
+
+Custom properties are not variables: they are computed at runtime depending on its context. Custom properties are statically valid 
+but can be invalid at computed time.
+
+
+

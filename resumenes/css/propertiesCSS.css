@@ -1,0 +1,145 @@
+-----------------------MENU--------------------------------
+color
+background (color, image, position, repeat, size, clip, attachement, origin)
+font (family, weight, size)
+text-align
+text-shadow
+border(size, style, color)
+
+
+-----------------------PROPERTIES--------------------------
+[]color: sets the color of the text contained in the element.
+    Accepts... 
+        -a keyword (red, transparent, etc.)
+        -HEX: #3fd57d / #3fd57d80 (transparency as the last component)
+        -RGB: rgb(34,56,73) / rgba(34,56,73,0.3) (transparency is [0,1])
+        -HSL: hsl(15, 82%, 30%) / hsla(15, 82%, 30%, 0.3) (transparency is [0,1])
+
+
+[]font-family: sets the font of the text contained in that element.
+    This property accepts one or many comma-separated values of two kinds, being the order the priority
+        -a font family name between quotes, like "Times New Roman"
+        -a generic family name without quotes, like sans-serif
+
+[]font-size: sets the size of the font, __px
+[]font-weight: affects the boldness of the text
+    This value can be
+        -keyword: bold
+        -number: [100, 200, ..., 900] 
+[]text-align: start, end, center, justify, left, right, match-parent. 
+
+For images:
+    img {
+        height: auto; //mantains the original ratio of the image, in relation to the specified width.
+        width: 500px;
+    }
+Note: an image should ALLWAYS have its height and width specified, even in auto.
+
+
+[]background
+    []background-color --> self explains. Is the furthest layer of background (related to images).
+
+    []background-image --> sets one or more backgroun images to an element.
+        url('./path/to/img') [,url('./path/to/another/img')]
+        linear-gradien(...)
+
+        Many images may be drawn, the layer closer to the user is the first one specified. The last layer is the 
+        background-color.
+
+    []background-origin --> determines the background's origin.
+        border-box
+        padding-box
+        content-box
+
+    []background-position --> Sets the initial position for each background image.
+       keyword-value: where goes the image
+       percentaje-value percentaje-value: position relative to the container.
+       length-value length-value: position relative to the container. 
+       keyword edge-offset-value x2: example --> 'top 20px right 20%'
+       specification[, specification] : to specify the position of many background images, separate it by commas.
+
+       ---keyword value---
+       top // bottom // left // right // center.
+
+
+    []background-repeat:
+    ---format---
+    keyword
+    keyword keyword (doesnt allow repeat-x and repeat-y)
+
+    ---keywords---
+        repeat-x
+        repeat-y
+        repeat: image is repeated as much as needed to cover all the background area.
+        space: image is repeated as much as possible without clipping. Whitespace distributed evenly.
+        round: the images strech filling all the space until there is space for one more.
+        no-repeat: the image is not repeated.
+
+    []background-size --> sets the size of the background image.
+        keyword-value
+        length/percentaje : sets the width of the image, height becomes auto.
+        length/percentaje length/percentaje : sets width and height of the image.
+        specification[, specification] : to specify the sizes of many background images, separate it by commas.
+
+        ---keyword-value---
+        contain: Scales the image whithin its container without deforming the image, works if the image is bigger than the container.
+        cover: Scales the image to fill the container, deforming it if necessary. If the ratio of the container differs from the image,
+                it is cropped so that no empty space remains.
+        ---auto---
+        scales the background image in the corresponding direction such that the proportions are mantained.
+        ---length---
+        Negative values are not allowed.
+        ---percentaje---
+        Streches the image in the corresponding dimension to the specified percentaje of 'background positioning area', which 
+        is determined by background-origin (or the entire viewport if attachement: fixed)        
+
+        
+
+    []background-clip --> sets whether a background extends underneath its border box, padding box or content box.
+        border-box: background is clipped to the border-box.
+        padding-box: background is clipped to the padding-box.
+        content-box: background is clipped to the content-box.
+        text: background is clipped to the foreground text.
+
+    []background-attachment --> sets whether a background image position is fixed within the viewport.  
+        scroll: background fixed relative to the element itself (attached to the element border). 
+        fixed: background fixed relative to the viewport.
+        local: background fixed relative to the element's content.
+
+
+[]Border
+    []border-radius: 
+        length/percentaje --> (curvature at all the borders)
+        length/percentaje(1) length/percentaje(2) --> top-left & bottom-right // top-right & bottom-left
+        length/percentaje x4 --> top-left // top-right // bottom-right // bottom-left
+        
+        ---length---
+        Denotes the radius of the circle (or the minor/major axis of the ellipse).
+        ---Percentaje---
+        Percentajes for the horizontal axis of the ellipse refer to the width of the box.  
+
+
+        []border-top-left-radius
+        []border-bottom-left-radius
+        []border-top-right-radius
+        []border-bottom-right-radius
+
+    []border: size style color.
+
+
+[]box-shadow --> box shadow generator
+    --formats--
+    offset-x offset-y color
+    offset-x offset-y blur-radius color
+    offset-x offset-y blur-radius spread-radius color
+    inset offset-x offset-y color /*inset -> shadow inside the box, queda lindo*/
+    shadow-1 [,shadow-n]
+
+[]overflow --> determines what happens with the contents of a container when they overflow its space.
+    visible --> content exceeds the box
+    hidden --> content dissapears
+    clip --> like hidden, but forbids all scrolling
+    scroll --> scroll bar horizontal and vertical
+    auto --> scroll bar when needed
+
+[]opacity: [0,1] // [0%-100%]

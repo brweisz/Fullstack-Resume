@@ -1,0 +1,49 @@
+Terminology:
+- Grid container
+- Grid item
+- Grid line: dividing lines that make up the structure of the grid. Can be vertical or horizontal.
+- Grid cell: space between two adjacent row and column lines. Is the unit of the grid.
+- Grid track: space between two adjacent grid lines. They are columns or rows of the grid.
+- Grid area: the total space surrounded by four grid lines.
+
+{
+	display:  grid;
+}
+
+When an element has {display:  grid} it becomes a grid container, and all its direct childs become grid items.
+
+With the properties 'grid-template-columns' and 'grid-template-rows' we can select the amount of columns/rows of the grid
+and its size.
+
+Example:
+
+{
+	display: grid;
+	grid-template-columns: 50px 50px;
+	grid-template-rows: 50px 50px;
+}
+
+If we have more grid items than the ones specified in the container, the container will implicitly add more rows. This 
+happens generally when we need more tracks for extra content. The values for the sizes are not extrapolated from the 
+existing ones, but we can define the sizes of our implicit tracks.
+
+{
+	grid-auto-rows: 50px;
+	grid-auto-colummns: 50px;
+}
+
+If we want new elements to be added as columns, we need to clarify:
+
+{
+	grid-auto-flow: column;
+}
+
+We can adjust the gap for rows and columns separately or not, using:
+
+{
+	column-gap: 20px; // separation between columns.
+	row-gap: 30px;    // separation between rows.
+	---- or ----
+	gap: 10px;
+}
+

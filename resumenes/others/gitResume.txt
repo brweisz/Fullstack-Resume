@@ -225,3 +225,4 @@ If you want a local branch of yours to also live in a remote repository, you hav
 
 $git push <remote_name> <local_branch_name>:<remote_branch_name>
 
+When you do a fetch that brings down new remote-tracking branches, you don’t automatically have local, editable copies of them, you have only a pointer that you can’t modify. To merge this work into your current working branch, you can run '$git merge <remote>/<remote_branch_name>'.

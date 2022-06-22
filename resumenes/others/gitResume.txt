@@ -1,3 +1,6 @@
+Git theory
+----------
+
 Version Control: is a system that records changes to a file or set of files over time. VCS = Version Control System. 
 
 Local VCS -> lives in a database inside a local machine. 
@@ -16,31 +19,110 @@ There are 3 states any file can reside in:
 Main sections of a Git proyect:
 	- Working tree: single checkout of a version of the project, over which you can see and modify files. 
 	- Staging area: file in your git directory that stores information about what's gonna be commited on your next commit (it's called 'index'). 
-	- Git directory: where Git stores the metadata and object database for your project. It's what it's cloned when you clone c: 
+	- Git directory: where Git stores the metadata and object database for your project. It's what it's cloned when you clone.
 
-Common commands:
-	- status : shows the status of the directory files. 
-	- log : shows history of commits.
+
+git config
+----------
+Git comes with a tool called git config that lets you get and set configuration variables that control all aspects of how Git looks and operates. These variables can be stored in three different places:
+
+1) [path]/etc/gitconfig file: Contains values applied to every user on the system and all their repositories. If you pass the option --system to git config, it reads and writes from this file specifically. Because this is a system configuration file, you would need administrative or superuser privilege to make changes to it.
+
+2) ~/.gitconfig or ~/.config/git/config file: Values specific personally to you, the user. You can make Git read and write to this file specifically by passing the --global option, and this affects all of the repositories you work with on your system.
+
+3) config file in the Git directory (that is, .git/config) of whatever repository you’re currently using: Specific to that single repository. You can force Git to read from and write to this file with the --local option, but that is in fact the default. Unsurprisingly, you need to be located somewhere in a Git repository for this option to work properly.
+
+Each level overrides values in the previous level, so values in .git/config trump those in [path]/etc/gitconfig.
+$ git config --list --show-origin --> Muestra todas las configuraciones actuales y de donde provienen.
+
+Configuracion global (en ~/.gitconfig) -->
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+
+Again, you need to do this only once if you pass the --global option, because then Git will always use that information for anything you do on that system. If you want to override this with a different name or email address for specific projects, you can run the command without the --global option when you’re in that project
+
+getting help
+------------
+$ git help <verb>
+$ git <verb> --help
+$ man git-<verb>
+
+In addition, if you don’t need the full-blown manpage help, but just need a quick refresher on the available options for a Git command, you can ask for the more concise “help” output with the -h option, as in: $git add -h
+
+starting with git
+-----------------
+Getting a Git Repository
+
+You typically obtain a Git repository in one of two ways:
+
+1) You can take a local directory that is currently not under version control, and turn it into a Git repository.
+	--> git init (parado en el directorio)
+		At this point, all files are untracked
+	--> track interested files
+	--> commit initial files
+
+2) You can clone an existing Git repository from elsewhere.
+	--> git clone <url> <optional_directory_name>
+		At this point, all files are tracked
+	--> (automatico) git checks out a working copy of the latest version
+
+
+
+git basics
+----------
+
+Files in git can be 
+	-Tracked (present in a previous snapshot) 
+		--> files git knows about
+
+	-Untracked 
+		--> files in your git directory but not present in any previous snapshot
+	
+
+
+Status commands:
+	$git status : shows the status of the directory files.
+
+	$git diff : shows exactly what you changed and haven't staged (the exact lines).
+		--staged/--cached -> shows staged changes
+
+	$git log : shows history of commits.
 		-p -> shows the difference between each commit
-	- add
-	- commit (-m) (-a)
-	- rm (-f) (--cached): removes a file from your working directory and untracks it. 
-		  (-f) forces the removal. 
-		  (--cached) doesn't delete the file.
-	- push 
-	- diff : shows exactly what you changed and haven't staged (the exact lines)
-	- mv : moves (or renames) the file and re-track it
+		-Tiene muchos estilos y opciones configurables.
 
-Branches
-	- branch <branch_name>  --> create new branch
-	- checkout (-b) <branch_name>  --> move to branch
-	- merge <branch_name>  --> takes the changes commited in branch_name and adds them to the current branch
-	- branch -d <branch_name> --> deletes the branch (-D if it hasn't been merged into main)
-		- to also delete the branch remotely: git push --delete origin <branch_name>
-	- git push origin <branch_name>
+Action commands:
+	$git add <filepath>: 
+		*starts tracking the file if it's not tracked.
+		*stages a copy of the file as it is.
+		Note: if you stage a file a.txt, then run '$git add a.txt' and then modify the file again, there is a staged copy of the file (as it was when you staged it) and a non staged copy of the file (its current version).
 
--------------------------
-[] Put an existing folder under version control with git: git init
+	$git commit: commits the staged files. Conceptually, records a snapshot of the project.
+		-m "commit text" 
+		-a -> git automatically stages every tracked file before the commit. Usefull for when you only modified tracked files.
+		
+
+	$git rm: removes a file from your working directory and from your staging area. 
+		-f -> forces the removal. 
+		--cached -> doesn't delete the file from the working directory. 
+	
+	$git mv <filename> <newPath>: moves (or renames) the file and re-tracks it.
+
+
+
+Undoing commands
+----------------
+
+	$git commit --amend -> behaves like a regular commit, but this commit replaces your last commit, taking its changes with it (the message is replaced). The previous commit didn't happen. It is used to make tiny changes to the last commit.
+
+	$git reset HEAD <filename> --> unstages the file.
+	$git restore --staged <filename> --> unstages the file.
+
+	$git restore <filename> --> restores the file to the state it was in the last comit. DANGER!
+
+
+Gitignore
+---------
+
 [] .gitignore is the name of the file where you can put those files you don't want git to know about, using some rules to refer to the files:
 		- # COMMENT
 		- Standar glob patterns (simplified regular expressions used by shells)
@@ -54,3 +136,70 @@ Branches
 	Examples:
 		- *.a  --> ignores all .a files
 		- !lib.a --> specifically track this file
+
+
+Working with remote repositories
+--------------------------------
+
+$git remote: lists the remote servers you have configured. In a cloned repo, you should see 'origin', which is the default name git fives to the server you cloned FROM.
+	-v -> shows the URLs that will be used to push (write) and pull (read) from that remote.
+
+$git remote show <shortname>: shows information about a particular remote.
+
+$git remote add <shortname> <repository_url>: adds a new remote repository.
+
+$git fetch <shortname> / $git fetch <url>: fetches all the data from the referenced remote repository. After doing so, you should have references to all branches from that remote. Note: this only downloads the data, doesn't merge or modify any of your local work.
+
+$git pull: if the current branch is set to track a specific remote branch (default is origin/main), this command FETCHES AND MERGES that remote branch into the current branch.
+
+$git push <remote> <branch>: 
+Example: $git push origin main: pushes your master branch to the 'origin' server. Note: pushes will be rejected if there is unfetched work in the remote.
+
+$git remote rename <old_shortname> <new_shortname>: renames a remote repository.
+
+$git remote remove/rm <shortname>: deletes the reference to a specific remote.
+
+
+Branches
+----------------------------------------------------------
+You can diverge from the main line of development using a branch, and continue to do work without touching the main line.
+
+A branch is just a name + a pointer to a specific commit. The default branch is main, and with every commit, the 'main' branch points to the newest commit.
+
+Now, git holds a special pointer called 'HEAD', that stores which branch you're currently on. By default, it points to main.
+
+$git branch <branch_name>: creates a new branch pointing to the same commit you're currently on, but it doesn't change HEAD to be the <branch_name>.
+
+$git checkout <branch_name>: moves you to a specific branch, meaning that MAIN points to <branch_name>.
+
+Now, if you make a new commit you'll see that the new branch (the one referenced by HEAD) has moved along with the new commit, but the 'main' branch (or the previous one we were standing on) is still pointing to the previous commit. When we move to a different branch, the working directory changes to reflect the snapshot being pointed by the commit we're standing on.
+
+$git checkout -b <new_branch_name>: creates a new branch and moves to it.
+
+Note: if your working directory or staging area has uncommitted changes that conflict with the branch you’re checking out, Git won’t let you switch branches. It’s best to have a clean working state when you switch branches.
+
+$git merge <branch_name>: takes the changes commited in branch_name and adds them to the current branch. Normally you would do this standing in the main branch.
+	
+	"Fast forward strategy" --> when all git has to merge both branches is to move the HEAD pointer forward. 
+	
+	"recursive strategy"--> from the common ancestor, merges using the two snapshots pointed by the two branches that we're merging. In this case, git creates a new snapshot with the merged data, creates a new commit pointing to this snapshots and this new commit also points to the two merging commits. The main branch (or the one we're merging in) points to this new commit.
+	
+
+$git branch -d <branch_name>: deletes the branch.
+$git branch -D <branch_name>: forces the delete if the branch hasn't been merged into main.
+
+
+Merge conflicts
+---------------
+
+If the same part of a file is different in two merging snapshots there is a conflict. Git doesn't create automatically the new commit. The '$git status' command shows the files in conflict. 
+
+Now you're standing in main, and if you open the conflicting file in your working directory, it will be showing somehow the conflicting zone, and the two options to resolve (the one in main and the one on the other branch). You have to delete or change some of the content to decide the final version.
+
+After that, use '$git add' on each conflicting file and then $git commit -m"...", and this will create the corresponding merged commit, with head pointing to main and main pointing to this commit.
+
+
+
+
+
+

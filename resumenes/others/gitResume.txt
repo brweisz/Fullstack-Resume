@@ -146,6 +146,7 @@ $git remote: lists the remote servers you have configured. In a cloned repo, you
 
 $git remote show <shortname>: shows information about a particular remote.
 
+
 $git remote add <shortname> <repository_url>: adds a new remote repository.
 
 $git fetch <shortname> / $git fetch <url>: fetches all the data from the referenced remote repository. After doing so, you should have references to all branches from that remote. Note: this only downloads the data, doesn't merge or modify any of your local work.
@@ -199,7 +200,28 @@ Now you're standing in main, and if you open the conflicting file in your workin
 After that, use '$git add' on each conflicting file and then $git commit -m"...", and this will create the corresponding merged commit, with head pointing to main and main pointing to this commit.
 
 
+Branch Management
+-----------------
+
+$git branch: shows the current existing branches.
+	-v -> shows also the last commit on each branch.
+	--merged -> shows only the branches merged to the branch you're standing on.
+	--no-merged ->  shows only the branches not yet merged to the branch you're standing on.
+
+$git branch --(no-)merged <branch_name>: same purpose, but respect to the specific branch, not the one standing on.
 
 
+Remote branches
+---------------
 
+$git remote show <shortname>: shows all the remote references.
+
+Remote-tracking branches are references to the state of remote branches. They’re local references that you can’t move; Git moves them for you whenever you do any network communication, to make sure they accurately represent the state of the remote repository. Think of them as bookmarks, to remind you where the branches in your remote repositories were the last time you connected to them. Remote-tracking branch names take the form:
+              <remote>/<branch>.
+
+$git fetch <shortname>: synchronize with a given remote. This command also updates the Remote branches.
+
+If you want a local branch of yours to also live in a remote repository, you have to push it like so:
+
+$git push <remote_name> <local_branch_name>:<remote_branch_name>
 

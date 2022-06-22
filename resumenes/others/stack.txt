@@ -13,11 +13,16 @@
 -CSS
 ----Flexbox
 	Box model
+	Grid
+
 
 -Javascript
 ---- DOM 
 	 Node
      Npm
      Webpack
-     
+     React
+
+-Python
+     Django
      

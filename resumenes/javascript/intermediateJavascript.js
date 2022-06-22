@@ -163,23 +163,6 @@ Promise.all([promise_1, promise_2, ..., promise_n]).then(function(results){
 //Attend only the first promise that finishes
 Promise.race([promise_1, promise_2]).then(function(finished_result){...}).catch(function(error_1, error_2){...});
 
-----------STACK, WEBAPI, EVENT LOOP, TASK QUEUE (seminar version)----------
-
-Javascript has an execution stack that holds the function calls ('function contexts'), whenever we do some async task, the stack holds the
-function for a moment and then lets it go, so that the webapi (or node in the backend) finishes or waits for the action to be complete. When
-it is, the callback asociated with that action is pushed onto the task queue, and when the stack is empty, the event loop will push the callback
-to the stack and execute it.
-
-Loupe --> app that allows to visualize all the process.
-
-For example, if you attach an event listener to a button, the code that does that stays in the webapi (until it is retired), and with each click,
-the handler for that button will be put in the callback queue, and the event loop will put them IN ORDER into the stack.
-
-Note: setTimeout(f, n) --> n is the minimum time you'll' have to wait until f is executed, it can be delayed by other callbacks in the 
-callback queue
-
-The browser also has a render queue, but it can only render things when the stack is empty, otherwise it will keep on adding things.
-Summary: Don't' put slow shit on the stack, becase it will make the rendering of the webpage slow.
 
 ------------APIs------------
 APIs (Application Programming Interfaces) are servers created for serving data for external use in websites or apps. In general, APIs are 
